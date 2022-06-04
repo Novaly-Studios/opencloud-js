@@ -26,12 +26,12 @@ type DataStoreResponse<T> = {
 
 type EntryListResponse = DataStoreResponse<{
     keys: EntryKeyInfo[],
-    nextPageCursor: string
+    nextPageCursor?: string
 }>;
 
 type VersionListResponse = DataStoreResponse<{
     versions: EntryVersionInfo[],
-    nextPageCursor: string
+    nextPageCursor?: string
 }>
 
 export default class DataStore extends APIRequest {
@@ -50,7 +50,7 @@ export default class DataStore extends APIRequest {
     // Metadata endpoints
 
     public async listEntries(limit: number = 50, prefix?: string, cursor?: string): Promise<EntryListResponse> {
-        let response = await this.makeRequest("entries", { limit, prefix, cursor }, {
+        let response = await this.makeRequest("entries", { limit, prefix, cursor, AllScopes: true }, {
             method: "GET"
         });
 
@@ -60,6 +60,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
@@ -79,6 +81,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
@@ -107,6 +111,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
@@ -130,6 +136,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
@@ -147,6 +155,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
@@ -166,6 +176,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
@@ -190,6 +202,8 @@ export default class DataStore extends APIRequest {
                 headers: response.headers,
                 statusCode: response.statusCode
             };
+        } if (response.statusCode == 502) {
+            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
             throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
