@@ -1,9 +1,8 @@
-import crypto from "crypto";
 import { IncomingHttpHeaders } from "http2";
 import lodash from "lodash";
-import { Dispatcher, request } from "undici";
+import { Dispatcher } from "undici";
 import APIRequest from "./APIRequest";
-import { OpenCloudError } from "./Errors";
+import { DataStoreError } from "./Errors";
 
 type EntryKeyInfo = {
     key: string,
@@ -40,7 +39,7 @@ export default class DataStore extends APIRequest {
     public constructor(apiKey: string, universeID: number, private dataStoreName: string) {
         super(apiKey);
 
-        this.baseURL = "https://apis.roblox.com/datastores/v1/universes/" + universeID + "/standard-datastores/datastore/";
+        this.baseURL = `https://apis.roblox.com/datastores/v1/universes/${universeID}/standard-datastores/datastore/`;
     }
 
     public async makeRequest(endpoint: string, params: { [key: string]: any } = {}, options: Partial<Dispatcher.RequestOptions> = {}) {
@@ -61,10 +60,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 
@@ -82,10 +81,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 
@@ -112,10 +111,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 
@@ -137,10 +136,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 
@@ -156,10 +155,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 
@@ -177,10 +176,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 
@@ -203,10 +202,10 @@ export default class DataStore extends APIRequest {
                 statusCode: response.statusCode
             };
         } if (response.statusCode == 502) {
-            throw new OpenCloudError("Bad Gateway", "INTERNAL", "Unknown");
+            throw new DataStoreError("Bad Gateway", "INTERNAL", "Unknown");
         } else {
             let errorData = await response.body.json();
-            throw new OpenCloudError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
+            throw new DataStoreError(errorData.message, errorData.error, errorData.errorDetails[0].datastoreErrorCode);
         }
     }
 }

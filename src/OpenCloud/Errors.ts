@@ -6,7 +6,16 @@ type InvalidArgumentError = "ContentLengthRequired" | "InvalidUniverseId" | "Inv
 type InsufficientScopeError = "Forbidden" | "InsufficientScope"
 type ResourceExhaustedError = "TooManyRequests"
 
+// sloppy
 export class OpenCloudError extends Error {
+    constructor(message: string) {
+        super(message);
+
+        this.name = "OpenCloudError";
+    }
+}
+
+export class DataStoreError extends OpenCloudError {
     public dataStoreReason: InvalidArgumentError | InsufficientScopeError | NotFoundError | ResourceExhaustedError | InternalError;
     public openCloudReason: OpenCloudErrorReason;
 
@@ -18,10 +27,8 @@ export class OpenCloudError extends Error {
     constructor(message: string, openCloudReason: OpenCloudErrorReason, dataStoreReason: InvalidArgumentError | InsufficientScopeError | NotFoundError | ResourceExhaustedError | InternalError) {
         super(message);
 
-        this.name = "OpenCloudError";
-
-        this.openCloudReason = openCloudReason;
+        this.name = "DataStoreError";
         this.dataStoreReason = dataStoreReason;
+        this.openCloudReason = openCloudReason;
     }
 }
-
